@@ -35,10 +35,9 @@ async def start(client, message):
 @app.on_message(filters.command('ping') & self_or_contact_filter)
 async def ping(client, message):
     start = datetime.now()
-    tauk = await message.reply('Pong!')
     end = datetime.now()
     m_s = (end - start).microseconds / 1000
-    await tauk.edit(f'**Pong!**\n> `{m_s} ms`')
+    await message.reply(f'**Ping!**\n> `{m_s} ms`')
 
 # play songs
 @app.on_message(filters.command('play') & self_or_contact_filter)
@@ -69,7 +68,8 @@ async def play_track(client, message):
             await message.reply('Group Call doesnt exist')
             return
         VOICE_CHATS[message.chat.id] = group_call
-    await a.edit(f'▶️ Playing **{audio.title}** at **{message.chat.title}** by JEVC Player...')
+    await a.delete()
+    await message.reply(f'▶️ Playing **{audio.title}** at **{message.chat.title}** by JEVC Player...')
 
 
 @app.on_message(filters.command('stopvc') & self_or_contact_filter)
